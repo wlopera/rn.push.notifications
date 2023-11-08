@@ -6,7 +6,7 @@ const BirthdayItem = ({ id, name, date, image }) => {
   const { width, height } = useWindowDimensions();
   // console.log("width, height", width, height)
 
-  let textSize = 18;
+  let textSize = 16;
 
   if (width < 380) {
     textSize = 12;
@@ -23,7 +23,7 @@ const BirthdayItem = ({ id, name, date, image }) => {
         >
           <Image style={styles.image} source={image} />
         </View>
-        <View  style={styles.imagenContainer}>
+        <View  style={styles.cardContainer}>
           <Text style={[styles.textName,imageStyle]}>{name}</Text>
           <Text style={imageStyle}>Cumpleaños el {converDate(date)}</Text>
           <Text style={imageStyle}>{getAge(date)}</Text>
@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
     borderColor: "#DADADA",
     padding: 10,
     margin: 2,
+    paddingTop:5,
     borderRadius: 50,
     flexDirection: "row",
     justifyContent: 'flex-start',
@@ -49,11 +50,13 @@ const styles = StyleSheet.create({
   imageContainer:{
     borderWidth: 1,
     overflow: "hidden",
-    borderRadius:50,
-    width: 100, height: 100
+    borderRadius:30,
+    width: 60, 
+    height: 60,
+    resizeMode: 'cover',
   },
-  imagenContainer:{marginHorizontal: 20, marginVertical:20},
-  image: { width: 100, height: 100 },
+  cardContainer:{marginLeft:20},
+  image: { width: 60, height: 80},
   textName:{
     fontWeight: 'bold'
   }
