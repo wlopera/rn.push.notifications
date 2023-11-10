@@ -1,15 +1,29 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet, Alert } from "react-native";
 import React, { useEffect, useState } from "react";
 
 import { BIRTHDAY } from "../../data/dummy-birthday";
 import BirthdayItem from "./BirthdayItem";
+import { getAllDB } from "../../utils/utilsDB";
 
 const BirtdayList = () => {
   const [birthdayList, setBirthdayList] = useState([]);
 
   useEffect(() => {
-    setBirthdayList(BIRTHDAY);
-  }, [BIRTHDAY]);
+    const getDataDB = async () => {
+      //setBirthdayList(BIRTHDAY);
+      const response = await getAllDB();
+      if ((response.code = 200)) {
+        if (response.data.length > 0) {
+          setBirthdayList(response.data);
+        } else {
+          Alert.alert("Warning", response.message);
+        }
+      } else {
+        Alert.alert("Error", response.message);
+      }
+    };
+    getDataDB();
+  }, []);
 
   return (
     <View style={styles.container}>

@@ -1,8 +1,14 @@
-import { View, Text, StyleSheet, Image, useWindowDimensions } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  useWindowDimensions,
+} from "react-native";
 
-import {converDate, getAge} from '../../utils/utilities'
+import { converDate, getAge } from "../../utils/utils";
 
-const BirthdayItem = ({ id, name, date, image }) => {
+const BirthdayItem = ({ id, firstname, lastname, date, image }) => {
   const { width, height } = useWindowDimensions();
   // console.log("width, height", width, height)
 
@@ -15,16 +21,19 @@ const BirthdayItem = ({ id, name, date, image }) => {
     fontSize: textSize,
   };
 
+  const imageContext = image ? (
+    <Image source={{ uri: image }} style={styles.image} />
+  ) : (
+    // <Image source={require("../../assets/images/camara.jpeg")} style={styles.image} />
+    <Image style={styles.image} />
+  );
+
   return (
     <View style={styles.container}>
       <View style={styles.card}>
-        <View
-          style={styles.imageContainer}
-        >
-          <Image style={styles.image} source={image} />
-        </View>
-        <View  style={styles.cardContainer}>
-          <Text style={[styles.textName,imageStyle]}>{name}</Text>
+        <View style={styles.imageContainer}>{imageContext}</View>
+        <View style={styles.cardContainer}>
+          <Text style={[styles.textName, imageStyle]}>{firstname} {lastname}</Text>
           <Text style={imageStyle}>Cumpleaños el {converDate(date)}</Text>
           <Text style={imageStyle}>{getAge(date)}</Text>
         </View>
@@ -42,22 +51,22 @@ const styles = StyleSheet.create({
     borderColor: "#DADADA",
     padding: 10,
     margin: 2,
-    paddingTop:5,
+    paddingTop: 5,
     borderRadius: 50,
     flexDirection: "row",
-    justifyContent: 'flex-start',
+    justifyContent: "flex-start",
   },
-  imageContainer:{
+  imageContainer: {
     borderWidth: 1,
     overflow: "hidden",
-    borderRadius:30,
-    width: 60, 
+    borderRadius: 30,
+    width: 60,
     height: 60,
-    resizeMode: 'cover',
+    resizeMode: "cover",
   },
-  cardContainer:{marginLeft:20},
-  image: { width: 60, height: 80},
-  textName:{
-    fontWeight: 'bold'
-  }
+  cardContainer: { marginLeft: 20 },
+  image: { width: 60, height: 80 },
+  textName: {
+    fontWeight: "bold",
+  },
 });
